@@ -1,0 +1,21 @@
+version: 2
+sources:
+  - name: patrick_checking
+    database: financedb
+    schema: source_data
+    tables:
+      - name: patrick_checking
+        description: ""
+        columns:
+          - name: date
+            description: ""
+            data_type: timestamp
+          - name: description
+            description: ""
+            data_type: string
+          - name: transaction_type
+            description: ""
+            data_type: string
+          - name: string_amount
+            description: ""
+            data_type: string

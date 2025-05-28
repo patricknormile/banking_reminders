@@ -1,3 +1,4 @@
+### initial data load
 import duckdb
 
 conn = duckdb.connect("financedb.duckdb")
@@ -26,7 +27,6 @@ try:
 except:
     pass
 
-conn.execute("CREATE SCHEMA IF NOT EXISTS source_data")
 
 print(conn.sql("""
     select
@@ -38,5 +38,28 @@ print(conn.sql("""
     """)
 )
 
+print(conn.sql("""
+    select
+        column0 as date
+        , column1 as description
+        , column2 as transaction_type
+        , column3 as string_amount
+    from joint_checking
+    """)
+)
+
+print(conn.sql("""
+    select
+        *
+    from p_credit
+    """)
+)
+
+conn.execute("CREATE SCHEMA IF NOT EXISTS source_data")
+
+conn.execute("CREATE TABLE IF NOT EXISTS source_data.patrick_checking AS SELECT * FROM p_checking")
+conn.execute("CREATE TABLE IF NOT EXISTS source_data.joint_checking AS SELECT * FROM joint_checking")
+conn.execute("CREATE TABLE IF NOT EXISTS source_data.patrick_credit AS SELECT * FROM p_credit")
+conn.execute("CREATE TABLE IF NOT EXISTS source_data.michaela_credit AS SELECT * FROM m_credit")
 # p_credit = conn.read_csv("data/p_credit/2025-05-06_transaction_download.csv")
 # print(p_credit)
